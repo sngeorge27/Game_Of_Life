@@ -1,5 +1,5 @@
 /*
- * 
+ * EECE1080C Spring, 2019 Project 2 Final Submission:
  * -> Conway's Game of Life
  *
  * Filename:  main.cpp
@@ -7,16 +7,37 @@
  * This program is the basic concept of Conway's Game of Life. The alterations we made to the game are: allowing the user to select the amount
  * of generations printed, the file content that the program reads, and the parameters of determining which cell is dead or alive.
  * ------------------------------------------------------------------------------
- * |                                                                            |
+ * |PLEASE USE OUR SAMPLE INPUT (settings.txt) OR USE SAME FORMAT. ~ Thank you. |
  * |                                                                            |
  * | settings.txt format:                                                       |
  * |  - Each row is a coordinate (x,y) for an alive of the cell                 |
  * ------------------------------------------------------------------------------
- *  Version:  1.0
- *  Finished:  04/25/2019
+ *  Version:   1.0
+ *  Finished:  04/25/2019 7:47:00PM
  *  Revision:  none
  *  Compiler:  MinGW
  *
+ *  Developers:
+ *      - Keerthi Sekar - sekarku@mail.uc.edu
+ *      - Sarah George - georges6@mail.uc.edu
+ *
+ * Developer comments:
+ * Developer 1 (Keerthi Sekar):
+ * Tasks:
+ * Main Menu set up (Menu and case structure), modes (determineisAlive1 and 2), Grid Class skeleton, and allowing user to quit whenever
+ * they feel like.
+ *
+ * Learned from experience:
+ * How to combine another person's code and ideas into mine. It was interesting to tackle the challenges of combining both of our ideas.
+ * I also got a better understanding/practice of when to use classes to solve certain problems.
+ *
+ * Developer 2 (Sarah George):
+ * Tasks:
+ * Coord class, member functions determineisAlive, copy, Update, getLive, breakupstring, and updating board in main.
+ * Learned from experience:
+ *  How to effectively collaborate with another individual on a task and combine ideas. I have gained a better understanding of how to
+ * implement object-oriented programming using classes. It was interesting to tackle the challenge of using File I/O, combining both developer's
+ * ideas, and adding our own creativity to the game.
  */
 
 #include <iostream>
@@ -98,7 +119,7 @@ class Grid{
      */
     void getLive(){
 
-        infile.open("C:/Users/sngeo/Documents/settings.txt");
+        infile.open("settings.txt");
 
         while(getline(infile,line)){
             stringstream ss(line);
@@ -328,10 +349,10 @@ void displayInit(){
     cout << "Rules: " << endl;
     cout << "At each step in time, the following transitions occur:\n"
             "\n"
-            "Any live cell with fewer than two live neighbours dies, as if by underpopulation.\n"
-            "Any live cell with two or three live neighbours lives on to the next generation.\n"
-            "Any live cell with more than three live neighbours dies, as if by overpopulation.\n"
-            "Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction." << endl;
+            "Any live cell with fewer than neighbor setting selected dies, as if by underpopulation.\n"
+            "Any live cell with range of the neighbor setting selected lives on to the next generation.\n"
+            "Any live cell with more than the neighbor setting selected dies, as if by overpopulation.\n"
+            "Any dead cell with exactly the neighbor parameter selected becomes a live cell, as if by reproduction." << endl;
     cout << endl;
     cout << "Living cells are represented by O" << endl;
     cout << "Dead cells are represented by * " << endl;
@@ -477,9 +498,7 @@ int main(){
             cin >> gens;
 
             cout << endl;
-
-            cout << "Let's begin! Type y to start: " << endl;
-            cin >> proceed;
+            proceed = 'y';
         break;
         case 0:
             //Exits program
@@ -491,7 +510,7 @@ int main(){
     }
 
     while(proceed == 'y' && gens > 0){
-        cout << "Would you like to continue? y/n" << endl;
+        cout << "Type y to continue (n to exit): " << endl;
         cin >> proceed;
         //prints updated generations
         SetConsoleTextAttribute(hConsole, 11);
@@ -508,3 +527,4 @@ int main(){
 
     return 0;
 }
+
